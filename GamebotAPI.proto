@@ -1,0 +1,65 @@
+syntax = "proto3";
+package GamebotAPIProtocol;
+option csharp_namespace = "bytedance.lab.gamebot";
+
+message Request {
+    oneof request {
+        RequestRestartGame restart_game = 1;
+        RequestStep step = 2;
+        RequestQuit quit = 3;
+    }
+}
+
+message Response {
+    oneof response {
+        ResponseRestartGame restart_game = 1;
+        ResponseStep step = 2;
+        ResponseQuit quit = 3;
+    }
+}
+
+message RequestQuit {
+}
+
+message ResponseQuit {
+}
+
+// 只传输初始化的一些信息
+message RequestRestartGame {
+    Init init = 1;
+}
+
+message ResponseRestartGame {
+}
+
+message RequestStep {
+    Hero hero = 1;
+    bool done = 2;
+}
+
+message ResponseStep {
+   Action action = 1;
+}
+
+message Init {
+}
+
+message Hero {
+    float hp = 1;
+    float energy = 2;
+    float x = 3;
+    float y = 4;
+    float z = 5;
+    float rotation_x = 6;
+    float rotation_y = 7;
+    float rotation_z = 8;
+    repeated float ray_cast = 9;
+    int32 kill = 10;
+}
+
+message Action {
+    int32 move = 1;
+    bool shoot = 2;
+    float mouse_x = 3;
+    float mouse_y = 4;
+}
